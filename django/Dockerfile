@@ -1,8 +1,7 @@
 FROM index.alauda.cn/ericlung/python
 
 COPY . /opt/
-RUN (pip install django &&\
-pip install -r /opt/app/requirements.txt)
+RUN (pip install django)
 
 VOLUME ["/opt/app", "/opt/app"]
 EXPOSE 8000
