@@ -1,0 +1,3 @@
+Pillow
+django-imagekit
+bootstrap_admin
