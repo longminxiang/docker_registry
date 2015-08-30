@@ -36,7 +36,7 @@ class DjangoApp(object):
     def start(self):
         self.new_app_if_needed()
         os.system("echo \"start django\"")
-        os.system("cd %s" % self.app_path())
+        os.system("cd %s" % APP_DIR)
         os.system("python manage.py runserver")
 
 if __name__ == "__main__":
