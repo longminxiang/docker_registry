@@ -1,6 +1,6 @@
 FROM index.alauda.cn/ericlung/ubuntu
 
-RUN (apt-get install python2.7 python-dev python-pip &&\
+RUN (apt-get --yes --force-yes install python2.7 python-dev python-pip &&\
 cd root &&\
 mkdir .pip &&\
 cd .pip &&\
