@@ -5,6 +5,6 @@ RUN (pip install django &&\
 pip install -r /opt/app/requirements.txt)
 
 VOLUME ["/opt/app", "/opt/app"]
-EXPOSE 80
+EXPOSE 8000
 CMD ["python", "/opt/conf/conf.py"]
 
