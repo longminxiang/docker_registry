@@ -1,9 +1,9 @@
 FROM index.alauda.cn/ericlung/python
 
-COPY . /opt/
+COPY ./conf/conf.py /opt/
 RUN (pip install django)
 
-VOLUME ["/opt/app", "/opt/app"]
+VOLUME ["/home/app"]
 EXPOSE 8000
-CMD ["python", "/opt/conf/conf.py"]
+CMD ["python", "/opt/conf.py"]
 

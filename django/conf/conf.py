@@ -4,8 +4,8 @@ import re
 
 DEFAULT_APP_NAME = 'mysite'
 
-APP_DIR = '/opt/app/'
-CONF_DIR = '/opt/conf/'
+APP_DIR = '/home/app/'
+CONF_DIR = '/opt/'
 
 
 class DjangoApp(object):
@@ -35,8 +35,8 @@ class DjangoApp(object):
 
     def start(self):
         self.new_app_if_needed()
-        # os.system("echo \"start django\"")
-        # os.system("python %s/manage.py runserver" % self.app_path())
+        os.system("echo \"start django\"")
+        os.system("python %s/manage.py runserver 0.0.0.0:8000" % APP_DIR)
 
 if __name__ == "__main__":
     app = DjangoApp()
