@@ -1,6 +1,6 @@
-FROM index.alauda.cn/ericlung/ubuntu
+FROM daocloud.io/longminxiang/ubuntu1204
 
-RUN (apt-get --yes --force-yes install python2.7 python-dev python-pip &&\
+RUN (apt-get --yes --force-yes install python-dev python-pip &&\
 cd root &&\
 mkdir .pip &&\
 cd .pip &&\
