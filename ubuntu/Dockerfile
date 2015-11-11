@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:12.04
 
 RUN (cd /etc/apt/ &&\
 mv sources.list sources_backup.list &&\
