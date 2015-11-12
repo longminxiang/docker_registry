@@ -36,3 +36,16 @@ echo "\n[global]\n\
 index-url = http://pypi.douban.com/simple"\
 >> pip.conf)
 
+RUN (cd /etc/python2.7 &&\
+mv sitecustomize.py sitecustomize_backup &&\
+echo "import sys\n\
+reload(sys)\n\
+sys.setdefaultencoding('utf-8')\n\
+try:\n\
+    import apport_python_hook\n\
+except ImportError:\n\
+    pass\n\
+else:\n\
+    apport_python_hook.install()"\
+>> sitecustomize.py)
+

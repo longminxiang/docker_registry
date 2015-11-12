@@ -1,4 +1,53 @@
-FROM index.alauda.cn/ericlung/python
+FROM ubuntu:12.04
+
+RUN (cd /etc/apt/ &&\
+mv sources.list sources_backup.list &&\
+echo "\n# 163 sources\n\n\
+deb http://mirrors.163.com/ubuntu/ precise main restricted\n\
+deb-src http://mirrors.163.com/ubuntu/ precise main restricted\n\
+deb http://mirrors.163.com/ubuntu/ precise-updates main restricted\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted\n\
+deb http://mirrors.163.com/ubuntu/ precise universe\n\
+deb-src http://mirrors.163.com/ubuntu/ precise universe\n\
+deb http://mirrors.163.com/ubuntu/ precise-updates universe\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-updates universe\n\
+deb http://mirrors.163.com/ubuntu/ precise multiverse\n\
+deb-src http://mirrors.163.com/ubuntu/ precise multiverse\n\
+deb http://mirrors.163.com/ubuntu/ precise-updates multiverse\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-updates multiverse\n\
+deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse\n\
+deb http://mirrors.163.com/ubuntu/ precise-security main restricted\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-security main restricted\n\
+deb http://mirrors.163.com/ubuntu/ precise-security universe\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-security universe\n\
+deb http://mirrors.163.com/ubuntu/ precise-security multiverse\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse\n\
+deb http://extras.ubuntu.com/ubuntu precise main\n\
+deb-src http://extras.ubuntu.com/ubuntu precise main"\
+>> sources.list &&\
+apt-get update)
+
+RUN (apt-get --yes --force-yes install python-dev python-pip &&\
+cd root &&\
+mkdir .pip &&\
+cd .pip &&\
+echo "\n[global]\n\
+index-url = http://pypi.douban.com/simple"\
+>> pip.conf)
+
+RUN (cd /etc/python2.7 &&\
+mv sitecustomize.py sitecustomize_backup &&\
+echo "import sys\n\
+reload(sys)\n\
+sys.setdefaultencoding('utf-8')\n\
+try:\n\
+    import apport_python_hook\n\
+except ImportError:\n\
+    pass\n\
+else:\n\
+    apport_python_hook.install()"\
+>> sitecustomize.py)
 
 COPY ./conf/conf.py /opt/
 RUN (pip install django)

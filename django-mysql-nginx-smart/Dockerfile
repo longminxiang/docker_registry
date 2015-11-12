@@ -28,13 +28,7 @@ deb-src http://extras.ubuntu.com/ubuntu precise main"\
 >> sources.list &&\
 apt-get update)
 
-RUN (apt-get --yes --force-yes install python-dev python-pip &&\
-cd root &&\
-mkdir .pip &&\
-cd .pip &&\
-echo "\n[global]\n\
-index-url = http://pypi.douban.com/simple"\
->> pip.conf)
+RUN (apt-get --yes --force-yes install python-dev python-pip mysql-client libmysqlclient-dev python-mysqldb nginx)
 
 RUN (cd /etc/python2.7 &&\
 mv sitecustomize.py sitecustomize_backup &&\
@@ -49,14 +43,19 @@ else:\n\
     apport_python_hook.install()"\
 >> sitecustomize.py)
 
-COPY ./conf/conf.py /opt/
-RUN (pip install django)
+RUN (cd root &&\
+mkdir .pip &&\
+cd .pip &&\
+echo "\n[global]\n\
+index-url = http://pypi.douban.com/simple"\
+>> pip.conf)
+
+RUN (pip install uwsgi && pip install django)
+
+COPY ./conf /opt/conf
 
 VOLUME ["/home/app"]
+EXPOSE 80
 EXPOSE 8000
-CMD ["python", "/opt/conf.py"]
-
-RUN (apt-get --yes --force-yes install mysql-client libmysqlclient-dev python-mysqldb)
-
-CMD ["python", "/opt/conf.py"]
-
+EXPOSE 8888
+CMD ["python", "/opt/conf/conf.py"]
