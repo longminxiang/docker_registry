@@ -3,16 +3,28 @@ FROM ubuntu:12.04
 RUN (cd /etc/apt/ &&\
 mv sources.list sources_backup.list &&\
 echo "\n# 163 sources\n\n\
-deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse\n\
-deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse\n\
-deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse\n\
-deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse\n\
-deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse"\
+deb http://mirrors.163.com/ubuntu/ precise main restricted\n\
+deb-src http://mirrors.163.com/ubuntu/ precise main restricted\n\
+deb http://mirrors.163.com/ubuntu/ precise-updates main restricted\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted\n\
+deb http://mirrors.163.com/ubuntu/ precise universe\n\
+deb-src http://mirrors.163.com/ubuntu/ precise universe\n\
+deb http://mirrors.163.com/ubuntu/ precise-updates universe\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-updates universe\n\
+deb http://mirrors.163.com/ubuntu/ precise multiverse\n\
+deb-src http://mirrors.163.com/ubuntu/ precise multiverse\n\
+deb http://mirrors.163.com/ubuntu/ precise-updates multiverse\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-updates multiverse\n\
+deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse\n\
+deb http://mirrors.163.com/ubuntu/ precise-security main restricted\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-security main restricted\n\
+deb http://mirrors.163.com/ubuntu/ precise-security universe\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-security universe\n\
+deb http://mirrors.163.com/ubuntu/ precise-security multiverse\n\
+deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse\n\
+deb http://extras.ubuntu.com/ubuntu precise main\n\
+deb-src http://extras.ubuntu.com/ubuntu precise main"\
 >> sources.list &&\
 apt-get update)
 
