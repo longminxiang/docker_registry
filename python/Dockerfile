@@ -32,8 +32,9 @@ apt-get update &&\
 apt-get --yes --force-yes install python-dev python-pip &&\
 apt-get clean &&\
 apt-get autoclean &&\
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-cd root &&\
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
+
+RUN (cd root &&\
 mkdir .pip &&\
 cd .pip &&\
 echo "\n[global]\n\
