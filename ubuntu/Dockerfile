@@ -1,5 +1,7 @@
 FROM ubuntu:12.04
 
+MAINTAINER Eric Lung <longminxiang@163.com>
+
 RUN (cd /etc/apt/ &&\
 mv sources.list sources_backup.list &&\
 echo "\n# 163 sources\n\n\
@@ -26,5 +28,8 @@ deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse\n\
 deb http://extras.ubuntu.com/ubuntu precise main\n\
 deb-src http://extras.ubuntu.com/ubuntu precise main"\
 >> sources.list &&\
-apt-get update)
+apt-get update &&\
+apt-get clean &&\
+apt-get autoclean &&\
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
