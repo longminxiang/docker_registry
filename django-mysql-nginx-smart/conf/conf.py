@@ -59,8 +59,6 @@ class DjangoApp(object):
 
     def start(self):
         self.new_app_if_needed()
-        os.system("echo \"install requirements\"")
-        os.system("pip install -i http://pypi.douban.com/simple -r %srequirements.txt" % APP_DIR)
         os.system("echo yes | python /home/app/manage.py collectstatic")
         if os.path.exists(NGINX_CONF_DEST):
             os.remove(NGINX_CONF_DEST)

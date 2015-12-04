@@ -1,5 +1,7 @@
 FROM ubuntu:12.04
 
+MAINTAINER Eric Lung <longminxiang@163.com>
+
 RUN (cd /etc/apt/ &&\
 mv sources.list sources_backup.list &&\
 echo "\n# 163 sources\n\n\
@@ -26,11 +28,20 @@ deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse\n\
 deb http://extras.ubuntu.com/ubuntu precise main\n\
 deb-src http://extras.ubuntu.com/ubuntu precise main"\
 >> sources.list &&\
-apt-get update)
+apt-get update &&\
+apt-get --yes --force-yes install python-dev python-pip \
+mysql-client libmysqlclient-dev python-mysqldb &&\
+apt-get clean &&\
+apt-get autoclean &&\
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
-RUN (apt-get --yes --force-yes install python-dev python-pip mysql-client libmysqlclient-dev python-mysqldb nginx)
-
-RUN (cd /etc/python2.7 &&\
+RUN (cd root &&\
+mkdir .pip &&\
+cd .pip &&\
+echo "\n[global]\n\
+index-url = http://pypi.douban.com/simple"\
+>> pip.conf &&\
+cd /etc/python2.7 &&\
 mv sitecustomize.py sitecustomize_backup &&\
 echo "import sys\n\
 reload(sys)\n\
@@ -43,14 +54,7 @@ else:\n\
     apport_python_hook.install()"\
 >> sitecustomize.py)
 
-RUN (cd root &&\
-mkdir .pip &&\
-cd .pip &&\
-echo "\n[global]\n\
-index-url = http://pypi.douban.com/simple"\
->> pip.conf)
-
-RUN (pip install uwsgi && pip install django)
+RUN (pip install django==1.8.6 && pip install uwsgi)
 
 COPY ./conf /opt/conf
 

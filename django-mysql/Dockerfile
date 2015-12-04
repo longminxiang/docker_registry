@@ -1,5 +1,7 @@
 FROM ubuntu:12.04
 
+MAINTAINER Eric Lung <longminxiang@163.com>
+
 RUN (cd /etc/apt/ &&\
 mv sources.list sources_backup.list &&\
 echo "\n# 163 sources\n\n\
@@ -26,17 +28,20 @@ deb-src http://mirrors.163.com/ubuntu/ precise-security multiverse\n\
 deb http://extras.ubuntu.com/ubuntu precise main\n\
 deb-src http://extras.ubuntu.com/ubuntu precise main"\
 >> sources.list &&\
-apt-get update)
+apt-get update &&\
+apt-get --yes --force-yes install python-dev python-pip \
+mysql-client libmysqlclient-dev python-mysqldb &&\
+apt-get clean &&\
+apt-get autoclean &&\
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
-RUN (apt-get --yes --force-yes install python-dev python-pip &&\
-cd root &&\
+RUN (cd root &&\
 mkdir .pip &&\
 cd .pip &&\
 echo "\n[global]\n\
 index-url = http://pypi.douban.com/simple"\
->> pip.conf)
-
-RUN (cd /etc/python2.7 &&\
+>> pip.conf &&\
+cd /etc/python2.7 &&\
 mv sitecustomize.py sitecustomize_backup &&\
 echo "import sys\n\
 reload(sys)\n\
@@ -49,14 +54,12 @@ else:\n\
     apport_python_hook.install()"\
 >> sitecustomize.py)
 
+RUN (pip install django==1.8.6)
+
 COPY ./conf/conf.py /opt/
-RUN (pip install django)
 
 VOLUME ["/home/app"]
 EXPOSE 8000
 CMD ["python", "/opt/conf.py"]
 
-RUN (apt-get --yes --force-yes install mysql-client libmysqlclient-dev python-mysqldb)
-
-CMD ["python", "/opt/conf.py"]
 
