@@ -30,7 +30,7 @@ deb-src http://extras.ubuntu.com/ubuntu precise main"\
 >> sources.list &&\
 apt-get update &&\
 apt-get --yes --force-yes install python-dev python-pip \
-mysql-client libmysqlclient-dev python-mysqldb &&\
+mysql-client libmysqlclient-dev python-mysqldb nginx &&\
 apt-get clean &&\
 apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
