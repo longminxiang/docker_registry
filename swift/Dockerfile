@@ -20,11 +20,14 @@ apt-get update &&\
 apt-get --yes --force-yes install git cmake ninja-build clang python uuid-dev libicu-dev icu-devtools libbsd-dev libedit-dev libxml2-dev libsqlite3-dev swig libpython-dev libncurses5-dev pkg-config &&\
 apt-get clean &&\
 apt-get autoclean &&\
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\
-cd /home &&\
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* )
+
+RUN (cd /home &&\
 git clone https://github.com/apple/swift.git &&\
 cd swift &&\
-./utils/update-checkout --clone &&\
+./utils/update-checkout --clone )
+
+RUN (cd /home/swift &&\
 utils/build-script -t)
 
 CMD ["bin/bash"]
