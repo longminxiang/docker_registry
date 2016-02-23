@@ -7,6 +7,11 @@ DEFAULT_APP_NAME = 'website'
 APP_DIR = '/home/app/'
 CONF_DIR = '/opt/conf/'
 
+NGINX_CONF_NAME = 'nginx-django.conf'
+NGINX_CONF_SRC = '%s%s' % (CONF_DIR, NGINX_CONF_NAME)
+NGINX_CONF_DEST = '/etc/nginx/conf.d/%s' % NGINX_CONF_NAME
+
+
 DJANGO_XML = '%s%s' % (CONF_DIR, 'uwsgi.ini')
 
 
@@ -55,7 +60,12 @@ class DjangoApp(object):
         os.system("echo yes | python /home/app/manage.py collectstatic")
         self.change_django_xml()
         os.system("echo \"run uwsgi\"")
-        os.system("uwsgi %s" % DJANGO_XML)
+        os.system("uwsgi -d %suwsgi.log %s" % (CONF_DIR, DJANGO_XML))
+        if os.path.exists(NGINX_CONF_DEST):
+            os.remove(NGINX_CONF_DEST)
+        os.system("ln -s %s %s" % (NGINX_CONF_SRC, NGINX_CONF_DEST))
+        os.system("echo \"start nginx\"")
+        os.system("nginx -g 'daemon off;'")
 
 if __name__ == "__main__":
     app = DjangoApp()

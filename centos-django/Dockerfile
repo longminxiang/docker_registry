@@ -4,7 +4,7 @@ MAINTAINER Eric Lung <longminxiang@163.com>
 
 RUN (yum -y update &&\
 yum -y install epel-release &&\
-yum -y install python-pip python-devel MySQL-python gcc libjpeg-turbo-devel libpng-devel &&\
+yum -y install nginx python-pip python-devel MySQL-python gcc libjpeg-turbo-devel libpng-devel &&\
 yum clean all)
 
 RUN (cd root &&\
