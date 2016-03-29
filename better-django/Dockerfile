@@ -1,4 +1,4 @@
-FROM centos:7
+FROM index.alauda.cn/library/centos:7
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
@@ -23,9 +23,6 @@ RUN (pip install --upgrade pip &&\
 pip install django==1.8.6 uwsgi Pillow django-imagekit)
 
 COPY ./conf /opt/conf
-
-VOLUME ["/home/app"]
-VOLUME ["/opt/conf"]
 
 EXPOSE 8000
 EXPOSE 8888
