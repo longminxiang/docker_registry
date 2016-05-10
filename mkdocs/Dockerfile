@@ -10,8 +10,6 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
 RUN (pip install mkdocs mkdocs-material)
 
-COPY conf.py /opt
-
 VOLUME ["/home/mkdocs"]
 VOLUME ["/var/www/html"]
 
