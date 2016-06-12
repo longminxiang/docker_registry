@@ -11,7 +11,7 @@ deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib\n\
 deb-src http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib\n"\
 >> sources.list && apt-get update)
 
-RUN (apt-get --yes install nginx &&\
+RUN (apt-get --yes install nginx nodejs &&\
 apt-get clean &&\
 apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
