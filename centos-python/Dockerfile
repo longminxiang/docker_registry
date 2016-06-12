@@ -18,4 +18,4 @@ echo -e "import sys\n\
 sys.setdefaultencoding('utf-8')"\
 >> sitecustomize.py)
 
-RUN (pip install --upgrade pip)
+CMD ["bin/bash"]
