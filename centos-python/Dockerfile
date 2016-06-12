@@ -2,8 +2,7 @@ FROM centos:7
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
-RUN (yum -y update &&\
-yum -y install epel-release &&\
+RUN (yum update && yum -y install epel-release &&\
 yum -y install python-pip python-devel &&\
 yum clean all)
 
