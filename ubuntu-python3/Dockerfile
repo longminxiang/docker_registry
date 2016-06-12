@@ -1,4 +1,4 @@
-FROM index.alauda.cn/library/ubuntu:16.04
+FROM ubuntu:16.04
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
