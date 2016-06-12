@@ -1,4 +1,4 @@
-FROM index.alauda.cn/library/centos:7
+FROM centos:7
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
@@ -20,6 +20,3 @@ sys.setdefaultencoding('utf-8')"\
 >> sitecustomize.py)
 
 RUN (pip install --upgrade pip)
-
-CMD ["bash"]
-
