@@ -21,7 +21,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe\n"\
 
 ENV SWIFT_BRANCH development
 ENV SWIFT_VERSION DEVELOPMENT-SNAPSHOT-2016-06-06-a
-ENV SWIFT_PLATFORM ubuntu16.04
+ENV SWIFT_PLATFORM ubuntu15.10
 
 # Install related packages
 RUN apt-get update && \
