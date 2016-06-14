@@ -19,8 +19,7 @@ echo -e "import sys\n\
 sys.setdefaultencoding('utf-8')"\
 >> sitecustomize.py)
 
-RUN (pip install --upgrade pip &&\
-pip install django==1.8.6 uwsgi Pillow django-imagekit)
+RUN (pip install django==1.8.6 uwsgi Pillow django-imagekit)
 
 COPY ./conf /opt/conf
 
