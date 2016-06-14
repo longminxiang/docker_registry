@@ -1,6 +1,0 @@
-<uwsgi>
-    <socket>127.0.0.1:3333</socket>
-    <chdir>/home/app/APPNAME</chdir>
-    <pythonpath>..</pythonpath>
-    <module>wsgi</module>
-</uwsgi>
