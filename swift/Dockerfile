@@ -31,12 +31,16 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 RUN (wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import - &&\
 gpg --keyserver hkp://pool.sks-keyservers.net --refresh-keys Swift)
 
-RUN (SWIFT_ARCHIVE_NAME=swift-3.0-PREVIEW-1 &&\
-SWIFT_URL=https://github.com/apple/swift/archive/$SWIFT_ARCHIVE_NAME.tar.gz &&\
-wget $SWIFT_URL &&\
-wget $SWIFT_URL.sig &&\
-gpg --verify $SWIFT_ARCHIVE_NAME.tar.gz.sig &&\
-tar -xvzf $SWIFT_ARCHIVE_NAME.tar.gz --directory / --strip-components=1 &&\
+ENV SWIFT_VERSION 3.0-preview-1
+ENV SWIFT_PLATFORM ubuntu14.04
+
+# Install Swift Ubuntu 14.04 Snapshot
+RUN (SWIFT_ARCHIVE_NAME=swift-$SWIFT_VERSION-$SWIFT_PLATFORM && \
+SWIFT_URL=https://swift.org/builds/swift-$SWIFT_VERSION/$(echo "$SWIFT_PLATFORM" | tr -d .)/$SWIFT_VERSION/SWIFT_ARCHIVE_NAME.tar.gz && \
+wget $SWIFT_URL && \
+wget $SWIFT_URL.sig && \
+gpg --verify $SWIFT_ARCHIVE_NAME.tar.gz.sig && \
+tar -xvzf $SWIFT_ARCHIVE_NAME.tar.gz --directory / --strip-components=1 && \
 rm -rf $SWIFT_ARCHIVE_NAME* /tmp/* /var/tmp/*)
 
 # Set Swift Path
