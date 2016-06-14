@@ -36,7 +36,7 @@ ENV SWIFT_PLATFORM ubuntu14.04
 
 # Install Swift Ubuntu 14.04 Snapshot
 RUN (SWIFT_ARCHIVE_NAME=swift-$SWIFT_VERSION-$SWIFT_PLATFORM && \
-SWIFT_URL=https://swift.org/builds/swift-$SWIFT_VERSION/$(echo "$SWIFT_PLATFORM" | tr -d .)/$SWIFT_VERSION/SWIFT_ARCHIVE_NAME.tar.gz && \
+SWIFT_URL=https://swift.org/builds/swift-$SWIFT_VERSION/$(echo "$SWIFT_PLATFORM" | tr -d .)/$SWIFT_VERSION/$SWIFT_ARCHIVE_NAME.tar.gz && \
 wget $SWIFT_URL && \
 wget $SWIFT_URL.sig && \
 gpg --verify $SWIFT_ARCHIVE_NAME.tar.gz.sig && \
