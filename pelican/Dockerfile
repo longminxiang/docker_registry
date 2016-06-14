@@ -1,4 +1,4 @@
-FROM index.alauda.cn/ericlung/ubuntu-python3
+FROM registry.aliyuncs.com/ericlung/ubuntu-python3
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
