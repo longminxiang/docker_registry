@@ -1,37 +1,41 @@
-FROM ubuntu:16.04
+FROM ubuntu:14.04
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
+# Change souces
 RUN (cd /etc/apt/ &&\
 mv sources.list sources_backup.list &&\
 echo "\n# aliyun sources\n\n\
-deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted\n\
-deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted\n\
-deb http://mirrors.aliyun.com/ubuntu/ xenial universe\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial universe\n\
-deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates universe\n\
-deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted\n\
-deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe\n"\
+deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse\n\
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse\n\
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse\n\
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse\n\
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse\n\
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse\n\
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse\n\
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse\n\
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse\n\
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse"\
 >> sources.list &&\
 apt-get clean &&\
-apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
 # Install related packages
 RUN (apt-get update &&\
-apt-get install -y build-essential clang wget libedit-dev python2.7 python2.7-dev rsync libxml2 git libssl-dev uuid-dev &&\
+apt-get install -y build-essential wget clang libedit-dev \
+python2.7 python2.7-dev libicu52 rsync libxml2 git libssl-dev uuid-dev &&\
 apt-get clean &&\
-apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
+
+# Install Swift keys
+RUN (wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import - &&\
+gpg --keyserver hkp://pool.sks-keyservers.net --refresh-keys Swift)
 
 RUN (SWIFT_ARCHIVE_NAME=swift-3.0-PREVIEW-1 &&\
 SWIFT_URL=https://github.com/apple/swift/archive/$SWIFT_ARCHIVE_NAME.tar.gz &&\
 wget $SWIFT_URL &&\
+wget $SWIFT_URL.sig &&\
+gpg --verify $SWIFT_ARCHIVE_NAME.tar.gz.sig &&\
 tar -xvzf $SWIFT_ARCHIVE_NAME.tar.gz --directory / --strip-components=1 &&\
 rm -rf $SWIFT_ARCHIVE_NAME* /tmp/* /var/tmp/*)
 
