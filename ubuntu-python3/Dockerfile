@@ -17,9 +17,13 @@ deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted\n\
 deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted\n\
 deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe\n\
 deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe\n"\
->> sources.list && apt-get update)
+>> sources.list &&\
+apt-get clean &&\
+apt-get autoclean &&\
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
-RUN (apt-get --yes install python3.5 python3-pip && \
+RUN (apt-get update &&\
+apt-get --yes install python3.5 python3-pip &&\
 apt-get clean &&\
 apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
