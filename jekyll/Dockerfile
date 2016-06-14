@@ -1,4 +1,4 @@
-FROM index.alauda.cn/library/ruby:2.3
+FROM ruby:2.3
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
@@ -9,9 +9,13 @@ deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib\n\
 deb http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib\n\
 deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib\n\
 deb-src http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib\n"\
->> sources.list && apt-get update)
+>> sources.list &&\
+apt-get clean &&\
+apt-get autoclean &&\
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
-RUN (apt-get --yes install nginx nodejs &&\
+RUN (apt-get update &&\
+apt-get --yes install nginx nodejs &&\
 apt-get clean &&\
 apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
