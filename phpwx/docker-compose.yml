@@ -1,0 +1,10 @@
+wx:
+    image: eric/wx
+    volumes:
+    - /backup/wx/home:/home
+    - /backup/wx/www:/var/www
+    ports:
+    - "22322:22"
+    - "5236:8888"
+    external_links:
+    - mysql_mysql_1:mysql1
