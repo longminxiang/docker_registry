@@ -21,6 +21,10 @@ echo -e "import sys\n\
 sys.setdefaultencoding('utf-8')"\
 >> sitecustomize.py)
 
+RUN (sed -i '/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/'d /etc/ssh/sshd_config &&\
+sed -i '/HostKey \/etc\/ssh\/ssh_host_ed25519_key/'d /etc/ssh/sshd_config &&\
+ssh-keygen -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key)
+
 EXPOSE 22
 
 CMD ["sh", "/run.sh"]
