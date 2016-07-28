@@ -24,7 +24,7 @@ sys.setdefaultencoding('utf-8')"\
 RUN (sed -i '/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/'d /etc/ssh/sshd_config &&\
 sed -i '/HostKey \/etc\/ssh\/ssh_host_ed25519_key/'d /etc/ssh/sshd_config &&\
 ssh-keygen -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key &&\
-sed -ri 's/session required pam_loginuid.so/#session required pam_loginuid.so/g' /etc/pam.d/sshd)
+sed -i '/pam_loginuid.so/'d /etc/pam.d/sshd)
 
 EXPOSE 22
 
