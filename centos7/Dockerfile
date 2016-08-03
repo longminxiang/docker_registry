@@ -4,8 +4,10 @@ MAINTAINER Eric Lung <longminxiang@163.com>
 
 COPY ./conf /
 
-RUN (yum -y update &&\
-yum -y install epel-release &&\
+RUN (sed -i '/enabled=1/s/1/0/g' /etc/yum/pluginconf.d/fastestmirror.conf &&\
+curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/.help/CentOS7-Base-163.repo &&\
+curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo &&\
+yum clean all &&\
 yum -y install openssh-server pwgen python-pip python-devel &&\
 yum clean all)
 
