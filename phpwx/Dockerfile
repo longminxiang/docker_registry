@@ -15,7 +15,7 @@ apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
 RUN (apt-get update &&\
-apt-get --yes install vim apache2 apache2-utils libapache2-mod-php5 php5-mysql &&\
+apt-get --yes install vim lrzsz unzip apache2 apache2-utils libapache2-mod-php5 php5-mysql php5-curl php5-gd &&\
 apt-get clean &&\
 apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
