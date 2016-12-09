@@ -1,20 +1,20 @@
-FROM registry.aliyuncs.com/ericlung/ubuntu-python3
+FROM apihackers/pelican
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
-RUN (apt-get update &&\
-apt-get --yes install nginx && \
-apt-get clean &&\
-apt-get autoclean &&\
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
+RUN (apk --update --no-cache add nginx make && mkdir /run/nginx)
 
-RUN (pip install pelican Markdown)
+RUN (echo -e "#!/bin/sh\n\n\
+path=\"/home/pelican/\"\n\n\
+if [ -d \"\$path\" ]; then\n\
+    cd \"\$path\"\n\
+    rm -rf output\n\
+    make html\n\n\
+    cp -r output/* /var/lib/nginx/html\n\
+    rm -rf output\n\
+    rm -rf __pycache__\n\
+fi\n\n\
+nginx -g 'daemon off;'"\
+>> /run.sh)
 
-VOLUME ["/home/pelican"]
-VOLUME ["/var/www/html"]
-
-EXPOSE 80
-EXPOSE 8000
-
-CMD ["nginx", "-g", "daemon off;"]
-
+CMD ["sh", "/run.sh"]
