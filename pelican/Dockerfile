@@ -2,19 +2,20 @@ FROM apihackers/pelican
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
-RUN (apk --update --no-cache add nginx make && mkdir /run/nginx)
+RUN (apk --update --no-cache add make)
+
+ENV SOURCE_PATH /home/pelican/
+ENV OUTPUT_PATH /output
 
 RUN (echo -e "#!/bin/sh\n\n\
-path=\"/home/pelican/\"\n\n\
-if [ -d \"\$path\" ]; then\n\
-    cd \"\$path\"\n\
+if [ -d \"\$SOURCE_PATH\" ]; then\n\
+    cd \"\$SOURCE_PATH\"\n\
     rm -rf output\n\
     make html\n\n\
-    cp -r output/* /var/lib/nginx/html\n\
+    cp -r output/* $OUTPUT_PATH\n\
     rm -rf output\n\
     rm -rf __pycache__\n\
-fi\n\n\
-nginx -g 'daemon off;'"\
+fi\n"\
 >> /run.sh)
 
 CMD ["sh", "/run.sh"]
