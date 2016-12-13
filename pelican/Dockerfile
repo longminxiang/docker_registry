@@ -11,6 +11,7 @@ RUN (echo -e "#!/bin/sh\n\n\
 if [ -d \"\$SOURCE_PATH\" ]; then\n\
     cd \"\$SOURCE_PATH\"\n\
     rm -rf output\n\
+    rm -rf $OUTPUT_PATH/*\n\
     make html\n\n\
     cp -r output/* $OUTPUT_PATH\n\
     rm -rf output\n\
