@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:7.2.1511
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
@@ -30,4 +30,4 @@ sed -i '/pam_loginuid.so/'d /etc/pam.d/sshd)
 
 EXPOSE 22
 
-CMD ["sh", "/run.sh"]
+ENTRYPOINT ["sh", "/run.sh"]
