@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/sbin/init
+
+/usr/sbin/init
 
 if [ "${AUTHORIZED_KEYS}" != "**None**" ]; then
     echo "=> Found authorized keys"

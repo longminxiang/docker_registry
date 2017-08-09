@@ -18,6 +18,6 @@ echo -e "import sys\n\
 sys.setdefaultencoding('utf-8')"\
 >> sitecustomize.py)
 
-RUN (cd /var && echo -e "#!/bin/sh\nwhile true\ndo\nsleep 10000\ndone" >> daemon.sh)
+RUN (cd / && echo -e "#!/bin/sh\nwhile true\ndo\nsleep 10000\ndone" >> run.sh)
 
-CMD ["sh", "/var/daemon.sh"]
+CMD ["/run.sh"]

@@ -1,4 +1,4 @@
-FROM centos:7.2.1511
+FROM centos
 
 MAINTAINER Eric Lung <longminxiang@163.com>
 
@@ -27,6 +27,19 @@ RUN (sed -i '/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/'d /etc/ssh/sshd_config &&\
 sed -i '/HostKey \/etc\/ssh\/ssh_host_ed25519_key/'d /etc/ssh/sshd_config &&\
 ssh-keygen -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key &&\
 sed -i '/pam_loginuid.so/'d /etc/pam.d/sshd)
+
+ENV container docker
+RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
+systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+rm -f /lib/systemd/system/multi-user.target.wants/*;\
+rm -f /etc/systemd/system/*.wants/*;\
+rm -f /lib/systemd/system/local-fs.target.wants/*; \
+rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+rm -f /lib/systemd/system/basic.target.wants/*;\
+rm -f /lib/systemd/system/anaconda.target.wants/*;
+
+VOLUME [ "/sys/fs/cgroup" ]
 
 EXPOSE 22
 
