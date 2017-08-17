@@ -8,7 +8,7 @@ apt-get clean &&\
 apt-get autoclean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*)
 
-RUN (pip install mkdocs mkdocs-material)
+RUN (pip install mkdocs==0.16.3 mkdocs-material==1.8.1)
 
 EXPOSE 8000
 
