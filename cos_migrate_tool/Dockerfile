@@ -8,4 +8,4 @@ COPY migrate_tool.jar /cos
 
 RUN mkdir log tmp
 
-CMD java -jar migrate_tool.jar
+CMD java -jar /cos/migrate_tool.jar
