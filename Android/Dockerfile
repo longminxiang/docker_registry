@@ -16,12 +16,9 @@ deb-src http://mirrors.163.com/debian-security/ stretch/updates main non-free co
 ENV GRADLE_HOME /opt/gradle
 ENV GRADLE_VERSION 4.4
 
-ARG GRADLE_DOWNLOAD_SHA256=4953323605c5d7b89e97d0dc7779e275bccedefcdac090aec123375eae0cc798
 RUN set -o errexit -o nounset \
     && echo "Downloading Gradle" \
     && wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
-    && echo "Checking download hash" \
-    && echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum --check - \
     && echo "Installing Gradle" \
     && unzip gradle.zip \
     && rm gradle.zip \
