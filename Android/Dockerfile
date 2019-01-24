@@ -14,7 +14,7 @@ deb-src http://mirrors.163.com/debian-security/ stretch/updates main non-free co
 >> sources.list
 
 ENV GRADLE_HOME /opt/gradle
-ENV GRADLE_VERSION 5.1.1
+ENV GRADLE_VERSION 4.4
 
 ARG GRADLE_DOWNLOAD_SHA256=4953323605c5d7b89e97d0dc7779e275bccedefcdac090aec123375eae0cc798
 RUN set -o errexit -o nounset \
@@ -39,4 +39,4 @@ RUN mkdir -p $ANDROID_HOME \
 
 ENV PATH ${PATH}:${ANDROID_HOME}/tools/bin
 
-RUN yes | sdkmanager "platform-tools" "platforms;android-28" "build-tools;28.0.2"
+RUN yes | sdkmanager "platform-tools"
